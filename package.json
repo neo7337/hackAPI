@@ -1,0 +1,11 @@
+{
+  "name": "hackapi",
+  "version": "1.0.0",
+  "description": "angelhack api 2018",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index"
+  },
+  "author": "Aditya",
+  "license": "ISC"
+}
