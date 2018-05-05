@@ -12,10 +12,10 @@ helpers.arePointsNear=function(checkPoint, centerPoint, km) {
     var kx = Math.cos(Math.PI * centerPoint.lat / 180.0) * ky;
     var arr =[];
     checkPoint.forEach(function(element) {
-    	//console.log("checkPoint",element.lat);	
+    	
        var dx = Math.abs(centerPoint.lng - element.long) * kx;
        var dy = Math.abs(centerPoint.lat - element.lat) * ky;
-       //console.log("object is: ", element.lng);
+   
        if(Math.sqrt(dx * dx + dy * dy) <= km)
        {
           arr.push(element);
