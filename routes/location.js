@@ -9,7 +9,7 @@ router.get("/api/:service/:lat/:lng",function(req,res){
           console.log("workersLocation",workersLocation);
           var ans=helpers.arePointsNear(workersLocation,customerLocation,10000);
           console.log(ans);
-          res.json(ans);
+          res.json({"response":ans});
     }).catch(function(err)
     {
         console.log(err);
