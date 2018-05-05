@@ -47,8 +47,47 @@ helpers.getlocation= function(service){
   });
 } 
 
-helpers.insertData = () =>{
+helpers.addCustomerService= function(customerData){
+     
+     return new Promise(function(resolve,reject){
+       
+      MongoClient.connect(url, function(err, db) {
+      
+        var dbo = db.db("hack");
+        dbo.collection("customerServices").insertOne(customerData, function(err, res) {
+          if (err){
+            reject(false);
+          }
+          else{
+            resolve(true);
+          }
+       
+          db.close();
+        });
+      });
+
+     });
+};
   
-}
+helpers.addWorker = function(workerData){
+    return new Promise(function(resolve,reject){
+       
+      MongoClient.connect(url, function(err, db) {
+      
+        var dbo = db.db("hack");
+        dbo.collection("workers").insertOne(workerData, function(err, res) {
+          if (err){
+            reject(false);
+          }
+          else{
+            resolve(true);
+          }
+       
+          db.close();
+        });
+      });
+
+     });
+};
 
 module.exports=helpers;  
