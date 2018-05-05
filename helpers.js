@@ -47,4 +47,8 @@ helpers.getlocation= function(service){
   });
 } 
 
+helpers.insertData = () =>{
+  
+}
+
 module.exports=helpers;  

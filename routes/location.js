@@ -4,7 +4,7 @@ var router = express.Router({mergeParams:true});
 
 router.get("/api/:service/:lat/:lng",function(req,res){
 
-    var customerLocation= { lat:req.params.lat, lng:req.params.lng};
+    var customerLocation= {services:req.params.service, lat:req.params.lat, lng:req.params.lng};
     helpers.getlocation(req.params.service).then(function(workersLocation){
           console.log("workersLocation",workersLocation);
           var ans=helpers.arePointsNear(workersLocation,customerLocation,10000);
