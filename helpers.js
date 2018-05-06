@@ -10,19 +10,19 @@ helpers.arePointsNear=function(checkPoint, centerPoint, km) {
     var ky = 40000 / 360;
     
     var kx = Math.cos(Math.PI * centerPoint.lat / 180.0) * ky;
-    var arr =[];
-    checkPoint.forEach(function(element) {
-    	
-       var dx = Math.abs(centerPoint.lng - element.long) * kx;
-       var dy = Math.abs(centerPoint.lat - element.lat) * ky;
+      	
+       var dx = Math.abs(centerPoint.long - checkPoint.long) * kx;
+       var dy = Math.abs(centerPoint.lat - checkPoint.lat) * ky;
    
        if(Math.sqrt(dx * dx + dy * dy) <= km)
        {
-          arr.push(element);
+          return true;
        }
-     });
+       else{
+        return false;
+       }
+ 
 
-    return arr;
   }
 
 helpers.getlocation= function(service){
@@ -89,5 +89,47 @@ helpers.addWorker = function(workerData){
 
      });
 };
+
+helpers.getAllUsers=function(){
+    return new Promise(function(resolve,reject){
+     MongoClient.connect(url, function(err, db) {
+      if (err) throw err;
+      var dbo = db.db('hack');
+      var query = { status:false};
+      dbo.collection("customerServices").find(query).toArray(function(err, result) {
+          if (err){
+            reject(err);
+          }
+         else{
+           resolve(result);
+         }
+      });
+    });
+   
+  });
+}
+
+helpers.updateUser=function(num){
+  return new Promise(function(resolve,reject){
+      MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db("hack");
+        console.log(num);
+        var myquery = { number:parseInt(num,10)};
+        var newvalues = { $set: {status:true} };
+        console.log(myquery+" "+newvalues);
+        dbo.collection("customerServices").updateOne(myquery, newvalues, function(err, res) {
+          if (err){
+            reject(err);
+          }
+         else{
+           resolve(res);
+         }
+          
+          db.close();
+        });
+      });
+  });
+}
 
 module.exports=helpers;  
